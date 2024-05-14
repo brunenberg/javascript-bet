@@ -1,0 +1,23 @@
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.idea
+.vscode
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+
+# Compiled output
+*.sass-cache
+*.min.css
+*.min.js
+
+# Dependencies
+bower_components
+
+# Optional: ignore configuration files that may contain sensitive information
+*.env
