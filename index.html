@@ -30,10 +30,12 @@
     <!-- Debug field for quickly changing location and weather type -->
     <div id="debugContainer">
         <label for="weatherLocation">Weer locatie:</label>
-        <input type="text" id="weatherLocation" name="weatherLocation">
+        <input type="text" id="weatherLocation" name="weatherLocation" placeholder="Naam of ID van stad">
         <button onclick="fetchWeather(document.getElementById('weatherLocation').value)">Ophalen</button>
-    </div>
+        <div id="messageContainer"></div>
+    </div>    
 
+    <script src="weather-api.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

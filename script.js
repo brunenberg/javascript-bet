@@ -25,10 +25,6 @@ function generatePackage() {
 
 }
 
-function fetchWeatherData(location) {
-
-}
-
 document.addEventListener('DOMContentLoaded', function() {
     loadTransportTypes();
 });
