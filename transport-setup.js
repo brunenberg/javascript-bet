@@ -17,14 +17,6 @@ function loadTransportTypes() {
     });
 }
 
-function createTruck(length, width, interval, type) {
-    
-}
-
-function generatePackage() {
-
-}
-
 document.addEventListener('DOMContentLoaded', function() {
     loadTransportTypes();
 
