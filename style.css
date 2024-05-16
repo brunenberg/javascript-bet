@@ -1,0 +1,44 @@
+/* Basis styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+#formulierContainer, #transportContainer, #debugContainer {
+    margin-bottom: 20px;
+}
+
+#vrachtwagenForm {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#vrachtwagenForm label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#vrachtwagenForm input, #vrachtwagenForm select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#vrachtwagenForm button {
+    background-color: #5cb85c;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#vrachtwagenForm button:hover {
+    background-color: #4cae4c;
+}
