@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bazaar Express Transport Simulatie</title>
+    <title>Bazaar Express Transport Simulation</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Step-by-step formulier voor het aanmaken van vrachtwagens -->
-    <div id="formulierContainer">
-        <form id="vrachtwagenForm">
-            <label for="lengte">Lengte:</label>
-            <input type="number" id="lengte" name="lengte" min="1" max="10" required>
-            <label for="breedte">Breedte:</label>
-            <input type="number" id="breedte" name="breedte" min="1" max="10" required>
-            <label for="interval">Aankomst interval (sec):</label>
+    <!-- Step-by-step form for creating trucks -->
+    <div id="formContainer">
+        <form id="truckForm">
+            <label for="length">Lengte:</label>
+            <input type="number" id="length" name="length" min="1" max="10" required>
+            <label for="width">Breedte:</label>
+            <input type="number" id="width" name="width" min="1" max="10" required>
+            <label for="interval">Aankomst interval (seconden):</label>
             <input type="number" id="interval" name="interval" required>
             <label for="type">Type transport:</label>
             <select id="type" name="type">
@@ -24,14 +24,14 @@
     </div>
 
     <div id="transportContainer">
-        <!-- Dynamische content komt hier -->
+        <!-- Dynamic content will be here -->
     </div>
 
-    <!-- Debug veldje voor het snel veranderen van locatie en weertype -->
+    <!-- Debug field for quickly changing location and weather type -->
     <div id="debugContainer">
-        <label for="weerLocatie">Weer locatie:</label>
-        <input type="text" id="weerLocatie" name="weerLocatie">
-        <button onclick="haalWeerOp(document.getElementById('weerLocatie').value)">Weer ophalen</button>
+        <label for="weatherLocation">Weer locatie:</label>
+        <input type="text" id="weatherLocation" name="weatherLocation">
+        <button onclick="fetchWeather(document.getElementById('weatherLocation').value)">Ophalen</button>
     </div>
 
     <script src="script.js"></script>
