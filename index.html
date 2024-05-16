@@ -31,11 +31,12 @@
     <div id="debugContainer">
         <label for="weatherLocation">Weer locatie:</label>
         <input type="text" id="weatherLocation" name="weatherLocation" placeholder="Naam of ID van stad">
-        <button onclick="fetchWeather(document.getElementById('weatherLocation').value)">Ophalen</button>
+        <button id="fetchWeatherButton">Ophalen</button>
         <div id="messageContainer"></div>
-    </div>    
+    </div>   
 
-    <script src="weather-api.js"></script>
-    <script src="script.js"></script>
+    <script src="Weather.js"></script>
+    <script src="Truck.js"></script>
+    <script src="transport-setup.js"></script>
 </body>
 </html>
