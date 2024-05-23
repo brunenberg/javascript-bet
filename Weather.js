@@ -25,7 +25,7 @@ class Weather {
             })
             .then(data => {
                 console.log(data);
-                messageContainer.textContent = 'Weerdata succesvol opgehaald!';
+                messageContainer.textContent = 'Weerdata succesvol opgehaald!\n' + ((data.main.temp - 272.15).toFixed(1)) + '°C\nWindsnelheid: ' + data.wind.speed + ' m/s';
                 messageContainer.style.color = 'green';
             })
             .catch(error => {
