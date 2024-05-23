@@ -5,6 +5,10 @@ body {
     padding: 20px;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 #formContainer, #transportContainer, #debugContainer {
     margin-bottom: 20px;
 }
@@ -41,4 +45,41 @@ body {
 
 #truckForm button:hover {
     background-color: #4cae4c;
+}
+
+
+.belts {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.conveyor {
+    display: flex;
+    align-items: center;
+    background-color: #000;
+    padding: .5rem;
+    width: 100%;
+    margin-top: 4rem;
+    border-radius: 100px;
+    position: relative;
+}
+
+.package {
+    width: 50px;
+    height: 50px;
+    background-color: #ffcc00;
+    border-radius: 50%;
+    animation: roll 20s linear infinite;
+    position: absolute;
+    bottom: 1.5rem;
+}
+
+@keyframes roll {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: 95%;
+    }
 }
