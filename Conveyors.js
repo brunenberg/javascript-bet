@@ -16,7 +16,13 @@ setInterval(addPackageToConveyor, 5000); // Add a package to the conveyor every 
 function addPackageToConveyor() {
     const conveyorElements = document.querySelectorAll('.conveyor');
     conveyorElements.forEach(conveyorElement => {
-        const packageElement = document.createElement('div');
+        // Randomly choose a tetromino
+        const tetrominos = ['straight', 'square', 'T', 'L', 'skew'];
+        const randomTetromino = tetrominos[Math.floor(Math.random() * tetrominos.length)];
+        let tetrominoElement = document.querySelector('#' + randomTetromino);
+
+        // Clone the tetromino element
+        let packageElement = tetrominoElement.cloneNode(true);
         packageElement.classList.add('package');
         conveyorElement.appendChild(packageElement);
 
@@ -25,3 +31,4 @@ function addPackageToConveyor() {
         }, 20000); // Remove the package after 20 seconds
     });
 }
+

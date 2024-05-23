@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bazaar Express Transport Simulation</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!-- Step-by-step form for creating trucks -->
     <div id="formContainer">
@@ -33,7 +35,7 @@
         <input type="text" id="weatherLocation" name="weatherLocation" placeholder="Naam of ID van stad">
         <button id="fetchWeatherButton">Ophalen</button>
         <div id="messageContainer"></div>
-    </div>   
+    </div>
 
     <button id="addBeltButton">Conveyor belt toevoegen</button>
 
@@ -41,9 +43,60 @@
 
     </div>
 
+    <div class="hidden">
+        <!-- Tetrominos -->
+        <div class="tetromino" id="straight">
+            <div class="straight">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div>
+        </div>
+        <div class="tetromino" id="square">
+            <div class="square">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div>
+        </div>
+        <div class="tetromino" id="T">
+            <div class="T">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div></div>
+                <div class="cell"></div>
+                <div></div>
+            </div>
+        </div>
+        <div class="tetromino" id="L">
+            <div class="L">
+                <div class="cell"></div>
+                <div></div>
+                <div class="cell"></div>
+                <div></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div>
+        </div>
+        <div class="tetromino" id="skew">
+            <div class="skew">
+                <div></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
     <script src="Weather.js"></script>
     <script src="Truck.js"></script>
     <script src="transport-setup.js"></script>
     <script src="Conveyors.js"></script>
 </body>
+
 </html>

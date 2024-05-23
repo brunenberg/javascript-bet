@@ -68,8 +68,6 @@ body {
 .package {
     width: 50px;
     height: 50px;
-    background-color: #ffcc00;
-    border-radius: 50%;
     animation: roll 20s linear infinite;
     position: absolute;
     bottom: 1.5rem;
@@ -82,4 +80,68 @@ body {
     100% {
         left: 95%;
     }
+}
+
+/* Tetromino */
+
+.tetromino div {
+    padding: .5rem;
+}
+
+.tetromino {
+    width: 2rem;
+}
+
+.straight {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: 1fr;
+}
+
+.straight div.cell {
+    background-color: blue;
+}
+
+.square {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.square div.cell {
+    background-color: yellow;
+}
+
+.T {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.T div.cell {
+    background-color: purple;
+}
+
+.L {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.L div.cell {
+    background-color: orange;
+}
+
+.skew {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.skew div.cell {
+    background-color: green;
+}
+
+.hidden {
+    display: none;
 }
