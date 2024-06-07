@@ -1,34 +1,28 @@
-function createConveyorElement() {
-    // Create a new conveyor element
-    const newConveyorElement = document.createElement('div');
-    newConveyorElement.classList.add('conveyor');
+import { Package } from './Packages.js';
 
-    // Append the new conveyor element to the .belts element
-    const beltsElement = document.querySelector('.belts');
-    beltsElement.appendChild(newConveyorElement);
-}
+export class Conveyor {
+    constructor() {
+        this.conveyorElement = document.createElement('div');
+        this.conveyorElement.classList.add('conveyor');
+        this.packages = [];
+    }
 
-const addBeltButton = document.querySelector('#addBeltButton');
-addBeltButton.addEventListener('click', createConveyorElement);
-
-setInterval(addPackageToConveyor, 5000); // Add a package to the conveyor every 5 seconds
-
-function addPackageToConveyor() {
-    const conveyorElements = document.querySelectorAll('.conveyor');
-    conveyorElements.forEach(conveyorElement => {
-        // Randomly choose a tetromino
+    addPackage() {
         const tetrominos = ['straight', 'square', 'T', 'L', 'skew'];
         const randomTetromino = tetrominos[Math.floor(Math.random() * tetrominos.length)];
-        let tetrominoElement = document.querySelector('#' + randomTetromino);
-
-        // Clone the tetromino element
-        let packageElement = tetrominoElement.cloneNode(true);
+        const tetrominoElement = document.querySelector('#' + randomTetromino);
+    
+        const packageElement = tetrominoElement.cloneNode(true);
+        const packageInstance = new Package(packageElement); // Create an instance of the Package class
         packageElement.classList.add('package');
-        conveyorElement.appendChild(packageElement);
-
+        packageElement.classList.add('rolling');
+    
+        this.conveyorElement.appendChild(packageElement);
+    
         setTimeout(() => {
-            conveyorElement.removeChild(packageElement);
+            this.conveyorElement.removeChild(packageElement);
         }, 20000); // Remove the package after 20 seconds
-    });
+    
+        this.packages.push(packageInstance);
+    }
 }
-

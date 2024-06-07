@@ -1,4 +1,4 @@
-class Truck {
+export class Truck {
     constructor(length, width, interval, type) {
         this.length = length;
         this.width = width;

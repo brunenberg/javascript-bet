@@ -66,15 +66,17 @@ body {
     width: 100%;
     margin-top: 4rem;
     border-radius: 100px;
-    position: relative;
+}
+
+.rolling {
+    animation: roll 20s linear infinite;
 }
 
 .package {
     width: 50px;
     height: 50px;
-    animation: roll 20s linear infinite;
+    transform: translateY(-50%);
     position: absolute;
-    bottom: 1.5rem;
 }
 
 @keyframes roll {
@@ -148,4 +150,21 @@ body {
 
 .hidden {
     display: none;
+}
+
+.dragging {
+    position: absolute;
+    z-index: 9999;
+    cursor: move;
+    left: -25px;
+    top: -25px;
+    background-color: red;
+}
+
+.dragging:hover {
+    opacity: 0.8;
+}
+
+.dragging:active {
+    cursor: grabbing;
 }
