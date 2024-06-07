@@ -51,6 +51,30 @@ body {
     background-color: #4cae4c;
 }
 
+.tablink {
+    background-color: #f1f1f1;
+    color: black; 
+    border: 1px solid;
+    padding: 10px 20px; 
+    text-align: center;
+    text-decoration: none;
+    display: inline-block; 
+    margin: 4px 2px;
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+
+.tablink:hover {
+    background-color: #ddd;
+}
+
+.tablink.active {
+    background-color: #555;
+    color: white;
+    border: 1px solid #555;
+}
+
+
 
 .belts {
     display: flex;

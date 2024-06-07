@@ -28,8 +28,20 @@
         </form>
     </div>
 
-    <div id="transportContainer">
-        <!-- Dynamic content will be here -->
+    <!-- Tabs voor het schakelen tussen laaddocken -->
+    <div id="dockTabs">
+        <button class="tablink" data-dock-id="LoadingDock1">Laadhal 1</button>
+        <button class="tablink" data-dock-id="LoadingDock2">Laadhal 2</button>
+    </div>
+
+    <!-- Laadhal 1 -->
+    <div id="LoadingDock1" class="dock" style="display:none;">
+        <!-- Inhoud voor Laadhal 1 -->
+    </div>
+
+    <!-- Laadhal 2 -->
+    <div id="LoadingDock2" class="dock" style="display:none;">
+        <!-- Inhoud voor Laadhal 2 -->
     </div>
 
     <!-- Debug field for quickly changing location and weather type -->
@@ -95,6 +107,12 @@
             </div>
         </div>
     </div>
+    
+    <script src="Models/Weather.js"></script>
+    <script src="Models/Truck.js"></script>
+    <script src="Models/Conveyors.js"></script>
+    <script src="Models/LoadingDock.js"></script>
+    <script src="Controllers/MainController.js"></script>
 </body>
 
 </html>

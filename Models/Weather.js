@@ -9,10 +9,10 @@ class Weather {
         const messageContainer = document.getElementById('messageContainer');
 
         if (!isNaN(this.cityInfo)) {
-            // It's a city ID
+            // city ID
             url = `http://api.openweathermap.org/data/2.5/forecast?id=${this.cityInfo}&appid=${this.apiKey}`;
         } else {
-            // It's a city name
+            // city name
             url = `http://api.openweathermap.org/data/2.5/weather?q=${this.cityInfo}&appid=${this.apiKey}`;
         }
 
@@ -24,7 +24,6 @@ class Weather {
                 return response.json();
             })
             .then(data => {
-                console.log(data);
                 messageContainer.textContent = 'Weerdata succesvol opgehaald!\n' + ((data.main.temp - 272.15).toFixed(1)) + '°C\nWindsnelheid: ' + data.wind.speed + ' m/s';
                 messageContainer.style.color = 'green';
             })
