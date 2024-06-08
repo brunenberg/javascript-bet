@@ -78,6 +78,10 @@ function attachEventListeners() {
         weather.fetchWeather();
     });
 
+    // Attach event listeners for conveyor belt and packages
+    const conveyor = new Conveyor();
+    conveyor.init();
+
     // Load transport types
     loadTransportTypes();
 }
