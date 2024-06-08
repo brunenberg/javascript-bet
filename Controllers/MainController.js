@@ -6,11 +6,11 @@ const transportTypes = [
     { value: 'express', display: 'Snelkoerier' }
 ];
 
-const minTruckLength = 1;
-const maxTruckLength = 15;
-
-const minTruckWidth = 1;
-const maxTruckWidth = 10;
+const validationConfig = {
+    'length': { min: 1, max: 15 },
+    'width': { min: 1, max: 10 },
+    'interval': { min: 1, max: Infinity }
+};
 
 const loadingdock1id = 'LoadingDock1';
 const loadingdock2id = 'LoadingDock2';
@@ -145,26 +145,19 @@ function initializeStepByStepForm() {
     }
 
     function validateFormStep(step) {
-        // This function deals with validation of the form fields
         let valid = true;
         const inputs = steps[step].getElementsByTagName('input');
+    
         for (let input of inputs) {
-            // Check if the input is empty or out of bounds
-            const value = parseInt(input.value, 10);
-            let minValue;
-            let maxValue;
+            const value = input.value.trim();
+            const parsedValue = parseInt(value, 10);
+            const isWholeNumber = value && value == parsedValue;
+            const { min, max } = validationConfig[input.id] || {};
     
-            if (input.id === 'length') {
-                minValue = minTruckLength;
-                maxValue = maxTruckLength;
-            } else if (input.id === 'width') {
-                minValue = minTruckWidth;
-                maxValue = maxTruckWidth;
-            }
-    
-            if (input.value === '' || value < minValue || value > maxValue) {
+            if (!value || !isValueInRange(parsedValue, min, max) || !isWholeNumber) {
                 input.classList.add('invalid');
-                showError(input, `Vul een waarde in tussen de ${minValue} en ${maxValue}.`);
+                const message = getErrorMessage(value, parsedValue, min, max, isWholeNumber);
+                showError(input, message);
                 valid = false;
             } else {
                 input.classList.remove('invalid');
@@ -172,6 +165,23 @@ function initializeStepByStepForm() {
             }
         }
         return valid;
+    }
+    
+    function getErrorMessage(value, parsedValue, min, max, isWholeNumber) {
+        if (!value) {
+            return `Voer een waarde in die groter is dan of gelijk is aan ${min}.`;
+        } else if (!isWholeNumber) {
+            return 'Voer een geheel getal in.';
+        } else if (parsedValue < min) {
+            return `Voer een waarde in die groter is dan of gelijk is aan ${min}.`;
+        } else {
+            return `Voer een waarde in tussen ${min} en ${max}.`;
+        }
+    }
+    
+    // Determines if a given value falls within the inclusive range specified by min and max
+    function isValueInRange(value, min, max) {
+        return !isNaN(value) && value >= min && (max === Infinity || value <= max); // Check for valid number and range
     }
     
     function showError(input, message) {
