@@ -15,6 +15,11 @@ class Package {
         console.debug('Mouse down event triggered');
         this.offsetX = event.offsetX;
         this.offsetY = event.offsetY;
+        
+        const scrollX = window.scrollX;
+        const scrollY = window.scrollY;
+        this.offsetX = event.clientX - this.packageElement.getBoundingClientRect().left + scrollX;
+        this.offsetY = event.clientY - this.packageElement.getBoundingClientRect().top + scrollY;
 
         const clonedElement = this.packageElement.cloneNode(true);
         clonedElement.style.position = 'absolute';
@@ -37,7 +42,11 @@ class Package {
     }
 
     handleMouseUp() {
+        if (!this.isDragging) {
+            return;
+        }
         console.debug('Mouse up event triggered');
         document.body.removeChild(this.clonedElement);
+        this.isDragging = false;
     }
 }

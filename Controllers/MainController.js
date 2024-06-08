@@ -99,7 +99,7 @@ function openDock(evt, dockName) {
 
     const dockElement = document.getElementById(dockName);
     if (dockElement) {
-        dockElement.style.display = "block";
+        dockElement.style.display = "flex";
         evt.target.classList.add("active");
         currentDock = dockName === 'LoadingDock1' ? loadingdock1 : loadingdock2;
     } else {

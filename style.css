@@ -184,6 +184,7 @@ body {
     left: -25px;
     top: -25px;
     background-color: red;
+    user-select: none;
 }
 
 .dragging:hover {
@@ -192,4 +193,87 @@ body {
 
 .dragging:active {
     cursor: grabbing;
+}
+
+.dock {
+    display: flex;
+    justify-content: start;
+    align-items: stretch;
+    flex-wrap: wrap;
+    padding: .5rem;
+    width: 100%;
+    gap: 5px;
+}
+
+.truck {
+    display: flex;
+    flex-direction: column;
+    padding: .5rem;
+    border: 1px solid #000;
+    border-radius: 5px;
+    align-items: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+}
+
+.grid[data-width="1"] {
+    grid-template-columns: 1fr;
+    width: calc(1*26px);
+}
+
+.grid[data-width="2"] {
+    grid-template-columns: repeat(2, 1fr);
+    width: calc(2*26px);
+}
+
+.grid[data-width="3"] {
+    grid-template-columns: repeat(3, 1fr);
+    width: calc(3*26px);
+}
+
+.grid[data-width="4"] {
+    grid-template-columns: repeat(4, 1fr);
+    width: calc(4*26px);
+}
+
+.grid[data-width="5"] {
+    grid-template-columns: repeat(5, 1fr);
+    width: calc(5*26px);
+}
+
+.grid[data-width="6"] {
+    grid-template-columns: repeat(6, 1fr);
+    width: calc(6*26px);
+}
+
+.grid[data-width="7"] {
+    grid-template-columns: repeat(7, 1fr);
+    width: calc(7*26px);
+}
+
+.grid[data-width="8"] {
+    grid-template-columns: repeat(8, 1fr);
+    width: calc(8*26px);
+}
+
+.grid[data-width="9"] {
+    grid-template-columns: repeat(9, 1fr);
+    width: calc(9*26px);
+}
+
+.grid[data-width="10"] {
+    grid-template-columns: repeat(10, 1fr);
+    width: calc(10*26px);
+}
+
+.grid-item {
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    width: 25px;
+    height: 25px;
 }

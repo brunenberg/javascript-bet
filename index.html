@@ -25,10 +25,24 @@
         </form>
     </div>
 
+    <!-- Debug field for quickly changing location and weather type -->
+    <div id="debugContainer">
+        <label for="weatherLocation">Weer locatie:</label>
+        <input type="text" id="weatherLocation" name="weatherLocation" placeholder="Naam of ID van stad">
+        <button id="fetchWeatherButton">Ophalen</button>
+        <div id="messageContainer"></div>
+    </div>
+
     <!-- Tabs voor het schakelen tussen laaddocken -->
     <div id="dockTabs">
         <button class="tablink" data-dock-id="LoadingDock1">Laadhal 1</button>
         <button class="tablink" data-dock-id="LoadingDock2">Laadhal 2</button>
+    </div>
+
+    <button id="addBeltButton">Conveyor belt toevoegen</button>
+
+    <div class="belts">
+        <!-- Conveyor belts komen hier -->
     </div>
 
     <!-- Laadhal 1 -->
@@ -39,20 +53,6 @@
     <!-- Laadhal 2 -->
     <div id="LoadingDock2" class="dock" style="display:none;">
         <!-- Inhoud voor Laadhal 2 -->
-    </div>
-
-    <!-- Debug field for quickly changing location and weather type -->
-    <div id="debugContainer">
-        <label for="weatherLocation">Weer locatie:</label>
-        <input type="text" id="weatherLocation" name="weatherLocation" placeholder="Naam of ID van stad">
-        <button id="fetchWeatherButton">Ophalen</button>
-        <div id="messageContainer"></div>
-    </div>
-
-    <button id="addBeltButton">Conveyor belt toevoegen</button>
-
-    <div class="belts">
-
     </div>
 
     <div class="hidden">

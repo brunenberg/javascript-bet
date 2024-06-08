@@ -4,7 +4,7 @@ class LoadingDock {
         this.trucks = [];
         this.dockElement = document.getElementById(this.id);
         if (this.dockElement) {
-            this.dockElement.style.display = "block"; // Ensure the dock is visible
+            this.dockElement.style.display = "flex"; // Ensure the dock is visible
         } else {
             console.error('No element found with id:', this.id);
         }
@@ -24,6 +24,17 @@ class LoadingDock {
             const truckElement = document.createElement('div');
             truckElement.classList.add('truck');
             truckElement.textContent = `Truck: ${truck.length} x ${truck.width}, Type: ${truck.type}`;
+            const gridElement = document.createElement('div');
+            gridElement.classList.add('grid');
+            const gridSize = truck.length * truck.width;
+            for (let i = 0; i < gridSize; i++) {
+                const gridItem = document.createElement('div');
+                gridItem.classList.add('grid-item');
+                gridElement.setAttribute('data-width', truck.width);
+                gridElement.appendChild(gridItem);
+            }
+
+            truckElement.appendChild(gridElement);
             this.dockElement.appendChild(truckElement);
         });
     }
