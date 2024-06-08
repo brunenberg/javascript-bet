@@ -6,7 +6,10 @@ const transportTypes = [
     { value: 'express', display: 'Snelkoerier' }
 ];
 
+const minTruckLength = 1;
 const maxTruckLength = 15;
+
+const minTruckWidth = 1;
 const maxTruckWidth = 10;
 
 const loadingdock1id = 'LoadingDock1';
@@ -148,12 +151,14 @@ function initializeStepByStepForm() {
         for (let input of inputs) {
             // Check if the input is empty or out of bounds
             const value = parseInt(input.value, 10);
-            const minValue = parseInt(input.min, 10);
+            let minValue;
             let maxValue;
     
             if (input.id === 'length') {
+                minValue = minTruckLength;
                 maxValue = maxTruckLength;
             } else if (input.id === 'width') {
+                minValue = minTruckWidth;
                 maxValue = maxTruckWidth;
             }
     
