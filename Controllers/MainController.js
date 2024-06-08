@@ -14,7 +14,7 @@ const loadingdock2 = new LoadingDock(loadingdock2id);
 
 let currentDock = loadingdock1;
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     loadTransportTypes();
     attachEventListeners();
     setDefaultActiveDock();
@@ -42,7 +42,7 @@ function loadTransportTypes() {
 
 function attachEventListeners() {
     // Attach event listeners to dock buttons
-    document.getElementById('dockTabs').addEventListener('click', function(event) {
+    document.getElementById('dockTabs').addEventListener('click', function (event) {
         if (event.target.tagName === 'BUTTON') {
             // Remove active class from all buttons
             var tablinks = document.getElementsByClassName("tablink");
@@ -59,7 +59,7 @@ function attachEventListeners() {
     });
 
     // Attach event listener to the truck form submission
-    document.getElementById('truckForm').addEventListener('submit', function(event) {
+    document.getElementById('truckForm').addEventListener('submit', function (event) {
         event.preventDefault(); // Prevent the page from reloading
 
         const length = document.getElementById('length').value;
@@ -72,7 +72,7 @@ function attachEventListeners() {
     });
 
     // Attach event listener for weather fetching
-    document.getElementById('fetchWeatherButton').addEventListener('click', function() {
+    document.getElementById('fetchWeatherButton').addEventListener('click', function () {
         const cityInfo = document.getElementById('weatherLocation').value;
         const weather = new Weather(cityInfo);
         weather.fetchWeather();

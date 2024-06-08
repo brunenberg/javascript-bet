@@ -14,16 +14,15 @@ class Conveyor {
 
     addPackageToConveyor() {
         this.conveyorElements = document.querySelectorAll('.conveyor');
-        console.info('Conveyor: Entered addPackageToConveyor method');
-        console.debug('Conveyor: Conveyor elements: ' + this.conveyorElements.length + '. Conveyor elements: ' + this.conveyorElements);
         this.conveyorElements.forEach(conveyorElement => {
-            console.info('Conveyor: Adding package to conveyor: ' + conveyorElement.id);
             const randomTetromino = this.tetrominos[Math.floor(Math.random() * this.tetrominos.length)];
             let tetrominoElement = document.querySelector('#' + randomTetromino);
             let packageElement = tetrominoElement.cloneNode(true);
             packageElement.classList.add('package');
             packageElement.removeAttribute('id');
+            new Package(packageElement);
             conveyorElement.appendChild(packageElement);
+
 
             packageElement.style.transition = 'left 20s linear';
             setTimeout(() => {
