@@ -35,14 +35,36 @@ class Package {
         let y = event.clientY - this.offsetY + window.scrollY;
 
         this.clonedElement.style.transform = `translate(${x}px, ${y}px)`;
+
+        // Check if package is over a truck grid
+        const truckGrids = document.querySelectorAll('.grid');
+        truckGrids.forEach(grid => {
+            const gridRect = grid.getBoundingClientRect();
+            if (event.clientX >= gridRect.left && event.clientX <= gridRect.right && event.clientY >= gridRect.top && event.clientY <= gridRect.bottom) {
+                grid.classList.add('highlight');
+            } else {
+                grid.classList.remove('highlight');
+            }
+        });
     }
 
-    handleMouseUp() {
+    handleMouseUp(event) {
         if (!this.isDragging) {
             return;
         }
         console.debug('Mouse up event triggered');
         document.body.removeChild(this.clonedElement);
         this.isDragging = false;
+
+        // Check if package is over a truck grid
+        const truckGrids = document.querySelectorAll('.grid');
+        truckGrids.forEach(grid => {
+            const gridRect = grid.getBoundingClientRect();
+            if (event.clientX >= gridRect.left && event.clientX <= gridRect.right && event.clientY >= gridRect.top && event.clientY <= gridRect.bottom) {
+                grid.appendChild(this.packageElement);
+                this.packageElement.classList.remove('package');
+                grid.classList.remove('highlight');
+            }
+        });
     }
 }

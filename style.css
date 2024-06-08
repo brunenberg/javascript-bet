@@ -183,7 +183,6 @@ body {
     cursor: move;
     left: -25px;
     top: -25px;
-    background-color: red;
     user-select: none;
 }
 
@@ -212,6 +211,10 @@ body {
     border: 1px solid #000;
     border-radius: 5px;
     align-items: center;
+}
+
+.highlight {
+    background-color: #c4c4c4;    
 }
 
 .grid {
