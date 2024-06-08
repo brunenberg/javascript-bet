@@ -15,11 +15,6 @@ class Package {
         console.debug('Mouse down event triggered');
         this.offsetX = event.offsetX;
         this.offsetY = event.offsetY;
-        
-        const scrollX = window.scrollX;
-        const scrollY = window.scrollY;
-        this.offsetX = event.clientX - this.packageElement.getBoundingClientRect().left + scrollX;
-        this.offsetY = event.clientY - this.packageElement.getBoundingClientRect().top + scrollY;
 
         const clonedElement = this.packageElement.cloneNode(true);
         clonedElement.style.position = 'absolute';
@@ -36,8 +31,9 @@ class Package {
             return;
         }
         console.debug('Mouse move event triggered');
-        const x = event.clientX - this.offsetX;
-        const y = event.clientY - this.offsetY;
+        let x = event.clientX - this.offsetX + window.scrollX;
+        let y = event.clientY - this.offsetY + window.scrollY;
+
         this.clonedElement.style.transform = `translate(${x}px, ${y}px)`;
     }
 
