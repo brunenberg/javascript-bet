@@ -13,14 +13,19 @@ class LoadingDockController {
             { value: 'pallets', display: 'Pallets' },
             { value: 'express', display: 'Snelkoerier' }
         ];
-        this.attachDockEventListeners();
+        this.attachLoadingDockEventListeners();
     }
 
-    attachDockEventListeners() {
+    attachLoadingDockEventListeners() {
         document.getElementById('dockTabs').addEventListener('click', (event) => {
             if (event.target.tagName === 'BUTTON') {
                 this.setActiveDock(event);
             }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            this.loadTransportTypes();
+            this.setDefaultActiveDock();
         });
     }
 

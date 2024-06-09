@@ -8,8 +8,6 @@ class MainController {
 
         // Call attachEventListeners after the DOM has loaded
         document.addEventListener('DOMContentLoaded', () => {
-            this.loadingDockController.loadTransportTypes();
-            this.loadingDockController.setDefaultActiveDock();
             this.attachEventListeners();
         });
     }
