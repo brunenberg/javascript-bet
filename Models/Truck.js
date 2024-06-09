@@ -42,7 +42,7 @@ class Truck {
             }
         } else if (this.type === 'fragile') {
             // Als het regent of sneeuwt rijd de Breekbaar Transport niet.
-            if (weather.weather[0].main === 'rain' || weather.weather[0].main === 'shower rain' || weather.weather[0].main === 'snow') {
+            if (weather.weather[0].main === 'Rain' || weather.weather[0].main === 'Snow') {
                 console.debug('Too wet for fragile transport');
                 return false;
             }
