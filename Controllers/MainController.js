@@ -1,144 +1,145 @@
-const transportTypes = [
-    { value: 'cold', display: 'Koud transport' },
-    { value: 'fragile', display: 'Breekbaar transport' },
-    { value: 'general', display: 'Algemeen transport' },
-    { value: 'pallets', display: 'Pallets' },
-    { value: 'express', display: 'Snelkoerier' }
-];
+class MainController {
+    constructor() {
+        this.transportTypes = [
+            { value: 'cold', display: 'Koud transport' },
+            { value: 'fragile', display: 'Breekbaar transport' },
+            { value: 'general', display: 'Algemeen transport' },
+            { value: 'pallets', display: 'Pallets' },
+            { value: 'express', display: 'Snelkoerier' }
+        ];
 
-const validationConfig = {
-    'length': { min: 1, max: 15 },
-    'width': { min: 1, max: 10 },
-    'interval': { min: 1, max: Infinity }
-};
+        this.validationConfig = {
+            'length': { min: 1, max: 15 },
+            'width': { min: 1, max: 10 },
+            'interval': { min: 1, max: Infinity }
+        };
 
-const loadingdock1id = 'LoadingDock1';
-const loadingdock2id = 'LoadingDock2';
+        this.loadingdock1id = 'LoadingDock1';
+        this.loadingdock2id = 'LoadingDock2';
 
-const loadingdock1 = new LoadingDock(loadingdock1id);
-const loadingdock2 = new LoadingDock(loadingdock2id);
+        this.loadingdock1 = new LoadingDock(this.loadingdock1id);
+        this.loadingdock2 = new LoadingDock(this.loadingdock2id);
 
-let currentDock = loadingdock1;
+        this.currentDock = this.loadingdock1;
 
-
-// Call attachEventListeners after the DOM has loaded
-document.addEventListener('DOMContentLoaded', function() {
-    loadTransportTypes();
-    attachEventListeners();
-    setDefaultActiveDock();
-});
-
-function setDefaultActiveDock() {
-    const defaultDockId = loadingdock1id;
-    const defaultButton = document.querySelector(`button[data-dock-id="${defaultDockId}"]`);
-    if (defaultButton) {
-        defaultButton.classList.add("active");
-        openDock({ target: defaultButton }, defaultDockId);
+        // Call attachEventListeners after the DOM has loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            this.loadTransportTypes();
+            this.attachEventListeners();
+            this.setDefaultActiveDock();
+            this.showStep(0);
+        });
     }
-}
 
-function loadTransportTypes() {
-    const selectElement = document.getElementById('type');
-    selectElement.innerHTML = '';
-    transportTypes.forEach(type => {
-        const option = document.createElement('option');
-        option.value = type.value;
-        option.textContent = type.display;
-        selectElement.appendChild(option);
-    });
-}
-
-function attachEventListeners() {
-    // Attach event listeners to buttons for switching between docks
-    document.getElementById('dockTabs').addEventListener('click', function(event) {
-        if (event.target.tagName === 'BUTTON') {
-            // Remove active class from all buttons
-            var tablinks = document.getElementsByClassName("tablink");
-            for (var i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("active");
-            }
-            // Add active class to the clicked button
-            event.target.classList.add("active");
-
-            // Call openDock to change the content
-            const dockId = event.target.getAttribute('data-dock-id');
-            openDock(event, dockId);
+    setDefaultActiveDock() {
+        const defaultDockId = this.loadingdock1id;
+        const defaultButton = document.querySelector(`button[data-dock-id="${defaultDockId}"]`);
+        if (defaultButton) {
+            defaultButton.classList.add("active");
+            this.openDock({ target: defaultButton }, defaultDockId);
         }
-    });
+    }
 
-    // Attach event listener to the truck form submission
-    document.getElementById('truckForm').addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevent the page from reloading
+    loadTransportTypes() {
+        const selectElement = document.getElementById('type');
+        selectElement.innerHTML = '';
+        this.transportTypes.forEach(type => {
+            const option = document.createElement('option');
+            option.value = type.value;
+            option.textContent = type.display;
+            selectElement.appendChild(option);
+        });
+    }
 
-        const length = document.getElementById('length').value;
-        const width = document.getElementById('width').value;
-        const interval = document.getElementById('interval').value;
-        const type = document.getElementById('type').value;
+    attachEventListeners() {
+        // Attach event listeners to buttons for switching between docks
+        document.getElementById('dockTabs').addEventListener('click', (event) => {
+            if (event.target.tagName === 'BUTTON') {
+                // Remove active class from all buttons
+                var tablinks = document.getElementsByClassName("tablink");
+                for (var i = 0; i < tablinks.length; i++) {
+                    tablinks[i].classList.remove("active");
+                }
+                // Add active class to the clicked button
+                event.target.classList.add("active");
 
-        const truck = new Truck(length, width, interval, type);
-        currentDock.addTruck(truck);
-    });
-
-    // Attach event listener for weather fetching
-    document.getElementById('fetchWeatherButton').addEventListener('click', function () {
-        const cityInfo = document.getElementById('weatherLocation').value;
-        const weather = new Weather(cityInfo);
-        weather.fetchWeather();
-        currentDock.displayTrucks();
-    });
-
-    // Attach event listeners for conveyor belt and packages
-    const conveyor = new Conveyor(loadingdock1, loadingdock2);
-    conveyor.init();
-
-    // Load transport types
-    loadTransportTypes();
-
-    // Initialize the step-by-step form
-    initializeStepByStepForm();
-}
-
-function initializeStepByStepForm() {
-    let currentStep = 0;
-    const steps = document.getElementsByClassName('formStep');
-    showStep(currentStep);
-
-    // Next button event listener
-    document.querySelectorAll('.nextBtn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            if (validateFormStep(currentStep)) {
-                changeStep(1); // Move to the next step
+                // Call openDock to change the content
+                const dockId = event.target.getAttribute('data-dock-id');
+                this.openDock(event, dockId);
             }
         });
-    });
 
-    // Previous button event listener
-    document.querySelectorAll('.prevBtn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            changeStep(-1); // Ga terug naar de vorige stap
+        // Attach event listener to the truck form submission
+        document.getElementById('truckForm').addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevent the page from reloading
+
+            const length = document.getElementById('length').value;
+            const width = document.getElementById('width').value;
+            const interval = document.getElementById('interval').value;
+            const type = document.getElementById('type').value;
+
+            const truck = new Truck(length, width, interval, type);
+            this.currentDock.addTruck(truck);
         });
-    });
 
-    function changeStep(n) {
+        // Attach event listener for weather fetching
+        document.getElementById('fetchWeatherButton').addEventListener('click', () => {
+            const cityInfo = document.getElementById('weatherLocation').value;
+            const weather = new Weather(cityInfo);
+            weather.fetchWeather();
+        });
+
+        // Attach event listeners for conveyor belt and packages
+        const conveyor = new Conveyor(this.loadingdock1, this.loadingdock2);
+        conveyor.init();
+
+        // Load transport types
+        this.loadTransportTypes();
+
+        // Initialize the step-by-step form
+        this.initializeStepByStepForm();
+    }
+
+    initializeStepByStepForm() {
+        this.currentStep = 0;
+        this.steps = document.getElementsByClassName('formStep');
+        this.showStep(this.currentStep);
+
+        // Next button event listener
+        document.querySelectorAll('.nextBtn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (this.validateFormStep(this.currentStep)) {
+                    this.changeStep(1); // Move to the next step
+                }
+            });
+        });
+
+        // Previous button event listener
+        document.querySelectorAll('.prevBtn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.changeStep(-1); // Go back to the previous step
+            });
+        });
+
+        document.getElementById('createTruckButton').addEventListener('click', this.submitForm.bind(this));
+    }
+
+    changeStep(n) {
         // Hide the current step
-        const steps = document.getElementsByClassName('formStep');
-        steps[currentStep].style.display = 'none';
-        currentStep += n;
+        this.steps[this.currentStep].style.display = 'none';
+        this.currentStep += n;
     
         // Ensure the step index stays within bounds
-        currentStep = Math.max(0, Math.min(steps.length - 1, currentStep));
+        this.currentStep = Math.max(0, Math.min(this.steps.length - 1, this.currentStep));
     
         // Show the new step
-        showStep(currentStep);
+        this.showStep(this.currentStep);
     }
 
-    // Make sure to hide the "Back" button in the first step
-    function showStep(step) {
-        const steps = document.getElementsByClassName('formStep');
-        for (let i = 0; i < steps.length; i++) {
-            steps[i].style.display = 'none';
-        }
-        steps[step].style.display = 'block';
+    showStep(step) {
+        // Hide all steps and then display the current step
+        Array.from(this.steps).forEach(s => s.style.display = 'none');
+        this.steps[step].style.display = 'block';
 
         // Hide the "Back" button if we are in the first step
         const prevBtn = document.querySelector('.prevBtn');
@@ -149,30 +150,30 @@ function initializeStepByStepForm() {
         }
     }
 
-    function validateFormStep(step) {
+    validateFormStep(step) {
         let valid = true;
-        const inputs = steps[step].getElementsByTagName('input');
+        const inputs = this.steps[step].getElementsByTagName('input');
     
         for (let input of inputs) {
             const value = input.value.trim();
             const parsedValue = parseInt(value, 10);
             const isWholeNumber = value && value == parsedValue;
-            const { min, max } = validationConfig[input.id] || {};
+            const { min, max } = this.validationConfig[input.id] || {};
     
-            if (!value || !isValueInRange(parsedValue, min, max) || !isWholeNumber) {
+            if (!value || !this.isValueInRange(parsedValue, min, max) || !isWholeNumber) {
                 input.classList.add('invalid');
-                const message = getErrorMessage(value, parsedValue, min, max, isWholeNumber);
-                showError(input, message);
+                const message = this.getErrorMessage(value, parsedValue, min, max, isWholeNumber);
+                this.showError(input, message);
                 valid = false;
             } else {
                 input.classList.remove('invalid');
-                hideError(input);
+                this.hideError(input);
             }
         }
         return valid;
-    }
-    
-    function getErrorMessage(value, parsedValue, min, max, isWholeNumber) {
+    };
+
+    getErrorMessage(value, parsedValue, min, max, isWholeNumber) {
         if (!value) {
             return `Voer een waarde in die groter is dan of gelijk is aan ${min}.`;
         } else if (!isWholeNumber) {
@@ -182,15 +183,13 @@ function initializeStepByStepForm() {
         } else {
             return `Voer een waarde in tussen ${min} en ${max}.`;
         }
-    }
-    
-    // Determines if a given value falls within the inclusive range specified by min and max
-    function isValueInRange(value, min, max) {
-        return !isNaN(value) && value >= min && (max === Infinity || value <= max); // Check for valid number and range
-    }
-    
-    function showError(input, message) {
-        // Create or update an error message below the input
+    };
+
+    isValueInRange(value, min, max) {
+        return !isNaN(value) && value >= min && (max === Infinity || value <= max);
+    };
+
+    showError(input, message) {
         let error = input.nextElementSibling;
         if (!error || !error.classList.contains('error-message')) {
             error = document.createElement('div');
@@ -199,57 +198,51 @@ function initializeStepByStepForm() {
         }
         error.textContent = message;
         error.style.display = 'block';
-    }
-    
-    function hideError(input) {
-        // Hide the error message
+    };
+
+    hideError(input) {
         let error = input.nextElementSibling;
         if (error && error.classList.contains('error-message')) {
             error.style.display = 'none';
         }
-    }  
+    };
 
-    function submitForm() {
-        // Collect all form data
+    submitForm() {
         const length = document.getElementById('length').value;
         const width = document.getElementById('width').value;
         const interval = document.getElementById('interval').value;
         const type = document.getElementById('type').value;
     
-        // Create a new Truck instance with the refreshTrucks method as a callback and add it to the current dock
-        const truck = new Truck(length, width, interval, type, currentDock, currentDock.refreshTruck.bind(currentDock));
-        currentDock.addTruck(truck);
+        const truck = new Truck(length, width, interval, type, this.currentDock);
+        this.currentDock.addTruck(truck);
     
-        // Reset the form fields for length and width, but keep the dock and transport type
         document.getElementById('length').value = '';
         document.getElementById('width').value = '';
         
-        // Reset to the first step
-        currentStep = 0;
-        showStep(currentStep);
+        this.currentStep = 0;
+        this.showStep(this.currentStep);
+    };
+
+    openDock(evt, dockName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("dock");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+
+        const dockElement = document.getElementById(dockName);
+        if (dockElement) {
+            dockElement.style.display = "flex";
+            evt.target.classList.add("active");
+            this.currentDock = dockName === this.loadingdock1id ? this.loadingdock1 : this.loadingdock2;
+        } else {
+            console.error('No element found with id:', dockName);
+        }
     }
-    
-    // Add an event listener for the 'Vrachtwagen Aanmaken' button
-    document.getElementById('createTruckButton').addEventListener('click', submitForm);
 }
 
-function openDock(evt, dockName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("dock");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablink");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].classList.remove("active");
-    }
-
-    const dockElement = document.getElementById(dockName);
-    if (dockElement) {
-        dockElement.style.display = "flex";
-        evt.target.classList.add("active");
-        currentDock = dockName === 'LoadingDock1' ? loadingdock1 : loadingdock2;
-    } else {
-        console.error('No element found with id:', dockName);
-    }
-}
+const mainController = new MainController();

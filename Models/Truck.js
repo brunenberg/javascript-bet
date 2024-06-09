@@ -23,6 +23,7 @@ class Truck {
         // Set a timeout to simulate the truck returning after the interval
         setTimeout(() => {
             this.inDock = true; // The truck is now back in the dock
+            console.log('Truck has returned to the dock');
             this.loadingDock.displayTrucks(); // Refresh the dock display
             if (callback) {
                 callback(this); // Call the provided callback function when the truck returns
