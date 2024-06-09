@@ -154,8 +154,8 @@ class Package {
         } else if (type === 'skew') {
             if (grid[row][column + 1] !== ''
                 || grid[row][column + 2] !== ''
-                || grid[row + 1][column + 1] !== ''
-                || grid[row + 1][column + 2] !== '') {
+                || grid[row + 1][column] !== ''
+                || grid[row + 1][column + 1] !== '') {
                 return true;
             }
         } else if (type === 'square') {
