@@ -62,38 +62,106 @@ class Package {
         // Check if package is over a truck grid
         const truckGrids = document.querySelectorAll('.grid');
         truckGrids.forEach(grid => {
-            grid.appendChild(this.packageElement);
-            this.packageElement.classList.remove('package');
-
             const gridRect = grid.getBoundingClientRect();
             if (event.clientX >= gridRect.left && event.clientX <= gridRect.right && event.clientY >= gridRect.top && event.clientY <= gridRect.bottom) {
                 const truckId = grid.getAttribute('data-truck-id');
                 const dock = grid.getAttribute('data-dock-id');
                 const width = grid.getAttribute('data-width');
 
+                // Find the grid item that the package is over
                 const gridItems = grid.querySelectorAll('.grid-item');
                 const gridItem = Array.from(gridItems).find(item => {
                     const itemRect = item.getBoundingClientRect();
                     return event.clientX >= itemRect.left && event.clientX <= itemRect.right && event.clientY >= itemRect.top && event.clientY <= itemRect.bottom;
                 });
                 const gridItemIndex = Array.from(grid.children).indexOf(gridItem);
-
+                // Calculate the row and column of the grid item
                 const row = Math.floor(gridItemIndex / width);
                 const column = gridItemIndex % width;
 
                 console.debug('Truck ID:', truckId, 'Dock:', dock, 'Row:', row, 'Column:', column, 'GridItemIndex', gridItemIndex, 'Width:', width);
 
                 if (dock === 'LoadingDock1') {
-                    this.loadingDock1.trucks[truckId].grid[row][column] = this.type;
+                    if (this.checkCollission(this.loadingDock1.trucks[truckId].grid, row, column, this.type)) {
+                        return;
+                    }                    
+                    // Add cells for the package
+                    this.addCells(this.loadingDock1.trucks[truckId].grid, row, column, this.type);
                     this.loadingDock1.displayTrucks();
                 } else {
                     this.loadingDock2.trucks[truckId].grid[row][column] = this.type;
                     this.loadingDock2.displayTrucks();
                 }
-                // grid.appendChild(this.packageElement);
-                // this.packageElement.classList.remove('package');
                 grid.classList.remove('highlight');
             }
         });
+    }
+
+    addCells(grid, row, column, type) {
+        if (type === 'T') {
+            grid[row][column] = type;
+            grid[row][column + 1] = type;
+            grid[row][column + 2] = type;
+            grid[row + 1][column + 1] = type;
+        } else if (type === 'L') {
+            grid[row][column] = type;
+            grid[row + 1][column] = type;
+            grid[row + 2][column] = type;
+            grid[row + 2][column + 1] = type;
+        } else if (type === 'skew') {
+            grid[row][column + 1] = type;
+            grid[row][column + 2] = type;
+            grid[row + 1][column] = type;
+            grid[row + 1][column + 1] = type;
+        } else if (type === 'square') {
+            grid[row][column] = type;
+            grid[row][column + 1] = type;
+            grid[row + 1][column] = type;
+            grid[row + 1][column + 1] = type;
+        } else if (type === 'straight') {
+            grid[row][column] = type;
+            grid[row + 1][column] = type;
+            grid[row + 2][column] = type;
+            grid[row + 3][column] = type;
+        }
+    }
+
+    checkCollission(grid, row, column, type) {
+        if (type === 'T') {
+            if (grid[row][column] !== ''
+                || grid[row][column + 1] !== ''
+                || grid[row][column + 2] !== ''
+                || grid[row + 1][column + 1] !== '') {
+                return true;
+            }
+        } else if (type === 'L') {
+            if (grid[row][column] !== ''
+                || grid[row + 1][column] !== ''
+                || grid[row + 2][column] !== ''
+                || grid[row + 2][column + 1] !== '') {
+                return true;
+            }
+        } else if (type === 'skew') {
+            if (grid[row][column + 1] !== ''
+                || grid[row][column + 2] !== ''
+                || grid[row + 1][column + 1] !== ''
+                || grid[row + 1][column + 2] !== '') {
+                return true;
+            }
+        } else if (type === 'square') {
+            if (grid[row][column] !== ''
+                || grid[row][column + 1] !== ''
+                || grid[row + 1][column] !== ''
+                || grid[row + 1][column + 1] !== '') {
+                return true;
+            }
+        } else if (type === 'straight') {
+            if (grid[row][column] !== ''
+                || grid[row + 1][column] !== ''
+                || grid[row + 2][column] !== ''
+                || grid[row + 3][column] !== '') {
+                return true;
+            }
+        }
     }
 }
