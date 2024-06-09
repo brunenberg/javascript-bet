@@ -20,6 +20,7 @@ const loadingdock2 = new LoadingDock(loadingdock2id);
 
 let currentDock = loadingdock1;
 
+
 // Call attachEventListeners after the DOM has loaded
 document.addEventListener('DOMContentLoaded', function() {
     loadTransportTypes();
@@ -67,7 +68,7 @@ function attachEventListeners() {
     });
 
     // Attach event listener to the truck form submission
-    document.getElementById('truckForm').addEventListener('submit', function(event) {
+    document.getElementById('truckForm').addEventListener('submit', function (event) {
         event.preventDefault(); // Prevent the page from reloading
 
         const length = document.getElementById('length').value;
@@ -80,11 +81,15 @@ function attachEventListeners() {
     });
 
     // Attach event listener for weather fetching
-    document.getElementById('fetchWeatherButton').addEventListener('click', function() {
+    document.getElementById('fetchWeatherButton').addEventListener('click', function () {
         const cityInfo = document.getElementById('weatherLocation').value;
         const weather = new Weather(cityInfo);
         weather.fetchWeather();
     });
+
+    // Attach event listeners for conveyor belt and packages
+    const conveyor = new Conveyor(loadingdock1, loadingdock2);
+    conveyor.init();
 
     // Load transport types
     loadTransportTypes();
@@ -241,7 +246,7 @@ function openDock(evt, dockName) {
 
     const dockElement = document.getElementById(dockName);
     if (dockElement) {
-        dockElement.style.display = "block";
+        dockElement.style.display = "flex";
         evt.target.classList.add("active");
         currentDock = dockName === 'LoadingDock1' ? loadingdock1 : loadingdock2;
     } else {

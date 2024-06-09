@@ -4,5 +4,6 @@ class Truck {
         this.width = width;
         this.interval = interval;
         this.type = type;
+        this.grid = Array.from({ length: length }, () => Array.from({ length: width }, () => ""));
     }
 }

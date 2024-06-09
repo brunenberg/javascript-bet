@@ -6,9 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bazaar Express Transport Simulation</title>
     <link rel="stylesheet" href="style.css">
-    <script src="transport-setup.js" defer></script>
-    <script src="Weather.js" defer></script>
-    <script type="module" src="Main.js" defer></script>
 </head>
 
 <body>
@@ -39,10 +36,24 @@
     </div>
     
 
+    <!-- Debug field for quickly changing location and weather type -->
+    <div id="debugContainer">
+        <label for="weatherLocation">Weer locatie:</label>
+        <input type="text" id="weatherLocation" name="weatherLocation" placeholder="Naam of ID van stad">
+        <button id="fetchWeatherButton">Ophalen</button>
+        <div id="messageContainer"></div>
+    </div>
+
     <!-- Tabs voor het schakelen tussen laaddocken -->
     <div id="dockTabs">
         <button class="tablink" data-dock-id="LoadingDock1">Laadhal 1</button>
         <button class="tablink" data-dock-id="LoadingDock2">Laadhal 2</button>
+    </div>
+
+    <button id="addBeltButton">Conveyor belt toevoegen</button>
+
+    <div class="belts">
+        <!-- Conveyor belts komen hier -->
     </div>
 
     <!-- Laadhal 1 -->
@@ -53,20 +64,6 @@
     <!-- Laadhal 2 -->
     <div id="LoadingDock2" class="dock" style="display:none;">
         <!-- Inhoud voor Laadhal 2 -->
-    </div>
-
-    <!-- Debug field for quickly changing location and weather type -->
-    <div id="debugContainer">
-        <label for="weatherLocation">Weer locatie:</label>
-        <input type="text" id="weatherLocation" name="weatherLocation" placeholder="Naam of ID van stad">
-        <button id="fetchWeatherButton">Ophalen</button>
-        <div id="messageContainer"></div>
-    </div>
-
-    <button id="addBeltButton">Conveyor belt toevoegen</button>
-
-    <div class="belts">
-
     </div>
 
     <div class="hidden">
@@ -122,6 +119,7 @@
     <script src="Models/Weather.js"></script>
     <script src="Models/Truck.js"></script>
     <script src="Models/Conveyors.js"></script>
+    <script src="Models/Package.js"></script>
     <script src="Models/LoadingDock.js"></script>
     <script src="Controllers/MainController.js"></script>
 </body>
