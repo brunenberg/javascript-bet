@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
     loadTransportTypes();
     attachEventListeners();
     setDefaultActiveDock();
-    showStep(0);
 });
 
 function setDefaultActiveDock() {
@@ -85,6 +84,7 @@ function attachEventListeners() {
         const cityInfo = document.getElementById('weatherLocation').value;
         const weather = new Weather(cityInfo);
         weather.fetchWeather();
+        currentDock.displayTrucks();
     });
 
     // Attach event listeners for conveyor belt and packages
@@ -217,7 +217,7 @@ function initializeStepByStepForm() {
         const type = document.getElementById('type').value;
     
         // Create a new Truck instance with the refreshTrucks method as a callback and add it to the current dock
-        const truck = new Truck(length, width, interval, type, currentDock, currentDock.refreshTruck.bind(currentDock));
+        const truck = new Truck(length, width, interval, type, currentDock.refreshTruck.bind(currentDock));
         currentDock.addTruck(truck);
     
         // Reset the form fields for length and width, but keep the dock and transport type
