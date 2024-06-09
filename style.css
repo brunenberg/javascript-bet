@@ -74,7 +74,16 @@ body {
     border: 1px solid #555;
 }
 
+.invalid {
+    border: 1px solid red;
+}
 
+.error-message {
+    color: red;
+    font-size: 0.8em;
+    display: none;
+    margin-bottom: 10px;
+}
 
 .belts {
     display: flex;
