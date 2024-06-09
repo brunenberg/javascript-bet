@@ -5,6 +5,7 @@ class Truck {
         this.interval = interval * 1000; // Convert seconds to milliseconds
         this.type = type;
         this.loadingDock = loadingDock;
+        console.log("Loading dock: ", loadingDock);
         this.inDock = true;
         this.grid = Array.from({ length: length }, () => Array.from({ length: width }, () => ""));
     }

@@ -144,8 +144,8 @@ class FormController {
         const interval = document.getElementById('interval').value;
         const type = document.getElementById('type').value;
     
-        const truck = new Truck(length, width, interval, type, this.mainController.currentDock);
-        this.mainController.currentDock.addTruck(truck);
+        const truck = new Truck(length, width, interval, type, this.mainController.loadingDockController.currentDock);
+        this.mainController.loadingDockController.currentDock.addTruck(truck);
     
         document.getElementById('length').value = '';
         document.getElementById('width').value = '';
