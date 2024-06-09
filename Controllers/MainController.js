@@ -80,10 +80,10 @@ function attachEventListeners() {
     });
 
     // Attach event listener for weather fetching
-    document.getElementById('fetchWeatherButton').addEventListener('click', async function () {
+    document.getElementById('fetchWeatherButton').addEventListener('click', function () {
         const cityInfo = document.getElementById('weatherLocation').value;
         const weather = new Weather(cityInfo);
-        await weather.fetchWeather();
+        weather.fetchWeather();
         currentDock.displayTrucks();
     });
 
