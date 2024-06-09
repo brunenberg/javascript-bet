@@ -218,6 +218,7 @@ body {
     border: 1px solid #000;
     border-radius: 5px;
     align-items: center;
+    white-space: pre;
 }
 
 .highlight {

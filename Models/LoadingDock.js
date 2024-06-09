@@ -22,13 +22,15 @@ class LoadingDock {
         this.dockElement.innerHTML = '';
         this.trucks.forEach(async (truck, index) => {
             let weatherCheck = await truck.checkWeather();
-            if(weatherCheck === false) {
+            const truckElement = document.createElement('div');
+            truckElement.classList.add('truck');
+            if (weatherCheck === false) {
                 console.debug('Truck', index, 'cannot leave due to weather conditions', 'Weather check:', weatherCheck);
+                truckElement.textContent = `Truck: ${truck.length} x ${truck.width}, Type: ${truck.type}\r\nWeather conditions prevent departure.`;
+                this.dockElement.appendChild(truckElement);
                 return; // Continue
             }
             console.debug('Truck', index, 'can leave', 'Weather check:', weatherCheck);
-            const truckElement = document.createElement('div');
-            truckElement.classList.add('truck');
             truckElement.textContent = `Truck: ${truck.length} x ${truck.width}, Type: ${truck.type}`;
             const gridElement = document.createElement('div');
             const grid = truck.grid;
