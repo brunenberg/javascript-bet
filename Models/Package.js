@@ -84,13 +84,23 @@ class Package {
                 if (dock === 'LoadingDock1') {
                     if (this.checkCollission(this.loadingDock1.trucks[truckId].grid, row, column, this.type)) {
                         return;
-                    }                    
+                    }
+                    this.animateToTruck(this.packageElement, grid, gridItem)
                     // Add cells for the package
-                    this.addCells(this.loadingDock1.trucks[truckId].grid, row, column, this.type);
-                    this.loadingDock1.displayTrucks();
+                    setTimeout(() => {
+                        this.addCells(this.loadingDock1.trucks[truckId].grid, row, column, this.type);
+                        this.loadingDock1.displayTrucks();
+                    }, 1000);
                 } else {
-                    this.loadingDock2.trucks[truckId].grid[row][column] = this.type;
-                    this.loadingDock2.displayTrucks();
+                    if (this.checkCollission(this.loadingDock2.trucks[truckId].grid, row, column, this.type)) {
+                        return;
+                    }
+                    this.animateToTruck(this.packageElement, grid, gridItem)
+                    // Add cells for the package
+                    setTimeout(() => {
+                        this.addCells(this.loadingDock2.trucks[truckId].grid, row, column, this.type);
+                        this.loadingDock2.displayTrucks();
+                    }, 1000);
                 }
                 grid.classList.remove('highlight');
             }
@@ -163,5 +173,38 @@ class Package {
                 return true;
             }
         }
+    }
+
+    animateToTruck(packageElement, gridElement, gridItemElement) {
+        // Get the coordinates of the elements
+        const packageRect = packageElement.getBoundingClientRect();
+        const gridRect = gridElement.getBoundingClientRect();
+        const gridItemRect = gridItemElement.getBoundingClientRect();
+
+        // Clone the package element and append it to the body
+        const clonedElement = packageElement.cloneNode(true);
+        clonedElement.style.position = 'absolute';
+        clonedElement.style.top = `${packageRect.top}px`;
+        clonedElement.style.left = `${packageRect.left}px`;
+
+        document.body.appendChild(clonedElement);
+        packageElement.parentNode.removeChild(packageElement);
+
+        // Calculate the target coordinates
+        const targetX = gridItemRect.left - packageRect.left;
+        const targetY = gridItemRect.top - packageRect.top;
+
+        // Animates the cloned element to the target coordinates
+        clonedElement.style.transition = 'transform 1s';
+
+        setTimeout(() => {
+            clonedElement.style.transform = `translate(${targetX}px, ${targetY}px)`;
+        }, 100);
+
+        // Remove the cloned element from the DOM after the animation
+        setTimeout(() => {
+            document.body.removeChild(clonedElement);
+        }, 1000);
+
     }
 }
