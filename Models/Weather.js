@@ -4,7 +4,7 @@ class Weather {
         this.apiKey = '3ecd629ca2d2d34c7d2974c446a66534';
     }
 
-    fetchWeather() {
+    async fetchWeather() {
         let url;
         const messageContainer = document.getElementById('messageContainer');
 
@@ -16,7 +16,7 @@ class Weather {
             url = `http://api.openweathermap.org/data/2.5/weather?q=${this.cityInfo}&appid=${this.apiKey}`;
         }
 
-        fetch(url)
+        var data = await fetch(url)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Weerdata kon niet worden opgehaald.');
@@ -26,11 +26,13 @@ class Weather {
             .then(data => {
                 messageContainer.textContent = 'Weerdata succesvol opgehaald!\n' + ((data.main.temp - 272.15).toFixed(1)) + '°C\nWindsnelheid: ' + data.wind.speed + ' m/s';
                 messageContainer.style.color = 'green';
+                return data;
             })
             .catch(error => {
                 console.error('Error fetching weather data:', error);
                 messageContainer.textContent = 'Fout bij het ophalen van weerdata.';
                 messageContainer.style.color = 'red';
             });
+        return data;
     }
 }

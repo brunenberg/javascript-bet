@@ -20,7 +20,13 @@ class LoadingDock {
             return;
         }
         this.dockElement.innerHTML = '';
-        this.trucks.forEach((truck, index) => {
+        this.trucks.forEach(async (truck, index) => {
+            let weatherCheck = await truck.checkWeather();
+            if(weatherCheck === false) {
+                console.debug('Truck', index, 'cannot leave due to weather conditions', 'Weather check:', weatherCheck);
+                return; // Continue
+            }
+            console.debug('Truck', index, 'can leave', 'Weather check:', weatherCheck);
             const truckElement = document.createElement('div');
             truckElement.classList.add('truck');
             truckElement.textContent = `Truck: ${truck.length} x ${truck.width}, Type: ${truck.type}`;

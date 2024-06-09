@@ -24,4 +24,36 @@ class Truck {
             }
         }, this.interval);
     }
+
+    // Weather rules
+    async checkWeather() {
+        const weatherInput = document.getElementById('weatherLocation').value;
+        if (weatherInput === '') {
+            return true; // No weather input, so no weather check
+        }
+        const weatherAPI = new Weather(weatherInput);
+        const weather = await weatherAPI.fetchWeather();
+        console.debug('Weather in Truck.js:', weather, 'Truck type:', this.type);
+        if (this.type === 'cold') {
+            // Als het boven de 35 graden is rijd de Koud transport niet.
+            if (weather.main.temp - 272.15 > 35) {
+                console.debug('Too hot for cold transport');
+                return false;
+            }
+        } else if (this.type === 'fragile') {
+            // Als het regent of sneeuwt rijd de Breekbaar Transport niet.
+            if (weather.weather[0].main === 'rain' || weather.weather[0].main === 'shower rain' || weather.weather[0].main === 'snow') {
+                console.debug('Too wet for fragile transport');
+                return false;
+            }
+        } else if (this.type === 'pallets') {
+            // Bij harde wind rijdt de palletvrachtwagen niet.
+            if (weather.wind.speed > 10) {
+                console.debug('Too windy for pallet transport');
+                return false;
+            }
+        } else {
+            return true; // No weather check for other types of transport
+        }
+    }
 }

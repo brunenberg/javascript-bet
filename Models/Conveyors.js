@@ -32,7 +32,9 @@ class Conveyor {
             }, 100);
 
             setTimeout(() => {
-                conveyorElement.removeChild(packageElement);
+                if (conveyorElement.contains(packageElement)) {
+                    conveyorElement.removeChild(packageElement);
+                }
             }, 20000);
         });
     }

@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
     loadTransportTypes();
     attachEventListeners();
     setDefaultActiveDock();
-    showStep(0);
 });
 
 function setDefaultActiveDock() {
@@ -81,10 +80,11 @@ function attachEventListeners() {
     });
 
     // Attach event listener for weather fetching
-    document.getElementById('fetchWeatherButton').addEventListener('click', function () {
+    document.getElementById('fetchWeatherButton').addEventListener('click', async function () {
         const cityInfo = document.getElementById('weatherLocation').value;
         const weather = new Weather(cityInfo);
-        weather.fetchWeather();
+        await weather.fetchWeather();
+        currentDock.displayTrucks();
     });
 
     // Attach event listeners for conveyor belt and packages
