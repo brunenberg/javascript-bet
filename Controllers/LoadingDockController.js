@@ -27,6 +27,10 @@ class LoadingDockController {
             this.loadTransportTypes();
             this.setDefaultActiveDock();
         });
+
+        // Attach event listeners for conveyor belt and packages
+        const conveyor = new Conveyor(this.loadingdock1, this.loadingdock2);
+        conveyor.init();
     }
 
     setActiveDock(evt) {
