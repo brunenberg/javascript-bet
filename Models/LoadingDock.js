@@ -21,6 +21,7 @@ class LoadingDock {
         }
         this.dockElement.innerHTML = '';
         this.trucks.forEach(async (truck, index) => {
+          if (truck.inDock) {
             let weatherCheck = await truck.checkWeather();
             const truckElement = document.createElement('div');
             truckElement.classList.add('truck');
@@ -44,32 +45,23 @@ class LoadingDock {
                     }
                     gridElement.appendChild(cellElement);
                 });
-            });
-            gridElement.setAttribute('data-width', truck.width);
-            gridElement.setAttribute('data-truck-id', this.trucks.indexOf(truck));
-            gridElement.setAttribute('data-dock-id', this.id)
+                gridElement.setAttribute('data-width', truck.width);
+                gridElement.setAttribute('data-truck-id', this.trucks.indexOf(truck));
+                gridElement.setAttribute('data-dock-id', this.id)
 
-            // Create a send button for each truck
-            const sendButton = document.createElement('button');
-            sendButton.textContent = 'Verstuur';
-            sendButton.addEventListener('click', () => {
-                truck.sendAndReturn(this.refreshTruck.bind(this));
-            });
+                // Create a send button for each truck
+                const sendButton = document.createElement('button');
+                sendButton.textContent = 'Verstuur';
+                sendButton.addEventListener('click', () => {
+                    truck.sendAndReturn(this.refreshTruck.bind(this));
+                    this.displayTrucks();
+                });
 
-            truckElement.appendChild(gridElement);
-            truckElement.appendChild(sendButton); // Append the send button to the truck element
-            this.dockElement.appendChild(truckElement);
+                truckElement.appendChild(gridElement);
+                truckElement.appendChild(sendButton); // Append the send button to the truck element
+                this.dockElement.appendChild(truckElement);
+            }    
         });
-    }
-
-    sendTruck(truck, index) {
-        // Logic to handle sending the truck away
-        console.log(`Sending truck ${index} away`);
-
-        // Start a timer based on the truck's interval
-        setTimeout(() => {
-            this.returnTruck(truck, index);
-        }, truck.interval);
     }
 
     returnTruck(truck, index) {
