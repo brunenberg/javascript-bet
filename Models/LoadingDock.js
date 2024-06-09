@@ -45,4 +45,27 @@ class LoadingDock {
             this.dockElement.appendChild(truckElement);
         });
     }
+
+    refreshTruck(truck) {
+        // Find the grid element for the specific truck using the data-truck-id attribute
+        const truckIndex = this.trucks.indexOf(truck);
+        const gridElement = this.dockElement.querySelector(`.grid[data-truck-id="${truckIndex}"]`);
+
+        // Clear the existing grid display
+        if (gridElement) {
+            gridElement.innerHTML = '';
+
+            // Rebuild the grid display based on the truck's current grid
+            truck.grid.forEach(row => {
+                row.forEach(cell => {
+                    const cellElement = document.createElement('div');
+                    cellElement.classList.add('grid-item');
+                    if (cell !== '') {
+                        cellElement.classList.add(`${cell}`);
+                    }
+                    gridElement.appendChild(cellElement);
+                });
+            });
+        }
+    }
 }

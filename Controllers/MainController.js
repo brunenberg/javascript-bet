@@ -216,8 +216,8 @@ function initializeStepByStepForm() {
         const interval = document.getElementById('interval').value;
         const type = document.getElementById('type').value;
     
-        // Create a new Truck instance and add it to the current dock
-        const truck = new Truck(length, width, interval, type);
+        // Create a new Truck instance with the refreshTrucks method as a callback and add it to the current dock
+        const truck = new Truck(length, width, interval, type, currentDock.refreshTruck.bind(currentDock));
         currentDock.addTruck(truck);
     
         // Reset the form fields for length and width, but keep the dock and transport type
