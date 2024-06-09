@@ -79,7 +79,7 @@ function attachEventListeners() {
     });
 
     // Attach event listeners for conveyor belt and packages
-    const conveyor = new Conveyor();
+    const conveyor = new Conveyor(loadingdock1, loadingdock2);
     conveyor.init();
 
     // Load transport types

@@ -129,7 +129,7 @@ body {
     grid-template-columns: 1fr;
 }
 
-.straight div.cell {
+.straight div.cell, .straight.grid-item {
     background-color: blue;
 }
 
@@ -139,7 +139,7 @@ body {
     grid-template-columns: repeat(2, 1fr);
 }
 
-.square div.cell {
+.square div.cell, .square.grid-item {
     background-color: yellow;
 }
 
@@ -149,7 +149,7 @@ body {
     grid-template-columns: repeat(3, 1fr);
 }
 
-.T div.cell {
+.T div.cell, .T.grid-item {
     background-color: purple;
 }
 
@@ -159,7 +159,7 @@ body {
     grid-template-columns: repeat(2, 1fr);
 }
 
-.L div.cell {
+.L div.cell, .L.grid-item {
     background-color: orange;
 }
 
@@ -169,7 +169,7 @@ body {
     grid-template-columns: repeat(3, 1fr);
 }
 
-.skew div.cell {
+.skew div.cell, .skew.grid-item {
     background-color: green;
 }
 

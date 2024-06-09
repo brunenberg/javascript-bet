@@ -1,5 +1,5 @@
 class Package {
-    constructor(element) {
+    constructor(element, loadingDock1, loadingDock2, type) {
         this.packageElement = element;
         this.offsetX = 0;
         this.offsetY = 0;
@@ -9,6 +9,9 @@ class Package {
         document.body.addEventListener('mousemove', this.handleMouseMove.bind(this));
         document.body.addEventListener('mouseup', this.handleMouseUp.bind(this));
         this.clonedElement = null;
+        this.loadingDock1 = loadingDock1;
+        this.loadingDock2 = loadingDock2;
+        this.type = type;
     }
 
     handleMouseDown(event) {
@@ -59,10 +62,36 @@ class Package {
         // Check if package is over a truck grid
         const truckGrids = document.querySelectorAll('.grid');
         truckGrids.forEach(grid => {
+            grid.appendChild(this.packageElement);
+            this.packageElement.classList.remove('package');
+
             const gridRect = grid.getBoundingClientRect();
             if (event.clientX >= gridRect.left && event.clientX <= gridRect.right && event.clientY >= gridRect.top && event.clientY <= gridRect.bottom) {
-                grid.appendChild(this.packageElement);
-                this.packageElement.classList.remove('package');
+                const truckId = grid.getAttribute('data-truck-id');
+                const dock = grid.getAttribute('data-dock-id');
+                const width = grid.getAttribute('data-width');
+
+                const gridItems = grid.querySelectorAll('.grid-item');
+                const gridItem = Array.from(gridItems).find(item => {
+                    const itemRect = item.getBoundingClientRect();
+                    return event.clientX >= itemRect.left && event.clientX <= itemRect.right && event.clientY >= itemRect.top && event.clientY <= itemRect.bottom;
+                });
+                const gridItemIndex = Array.from(grid.children).indexOf(gridItem);
+
+                const row = Math.floor(gridItemIndex / width);
+                const column = gridItemIndex % width;
+
+                console.debug('Truck ID:', truckId, 'Dock:', dock, 'Row:', row, 'Column:', column, 'GridItemIndex', gridItemIndex, 'Width:', width);
+
+                if (dock === 'LoadingDock1') {
+                    this.loadingDock1.trucks[truckId].grid[row][column] = this.type;
+                    this.loadingDock1.displayTrucks();
+                } else {
+                    this.loadingDock2.trucks[truckId].grid[row][column] = this.type;
+                    this.loadingDock2.displayTrucks();
+                }
+                // grid.appendChild(this.packageElement);
+                // this.packageElement.classList.remove('package');
                 grid.classList.remove('highlight');
             }
         });

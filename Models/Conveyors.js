@@ -1,5 +1,7 @@
 class Conveyor {
-    constructor() {
+    constructor(LoadingDock1, LoadingDock2) {
+        this.LoadingDock1 = LoadingDock1;
+        this.LoadingDock2 = LoadingDock2;
         this.beltsElement = document.querySelector('.belts');
         this.addBeltButton = document.querySelector('#addBeltButton');
         this.conveyorElements = document.querySelectorAll('.conveyor');
@@ -20,7 +22,7 @@ class Conveyor {
             let packageElement = tetrominoElement.cloneNode(true);
             packageElement.classList.add('package');
             packageElement.removeAttribute('id');
-            new Package(packageElement);
+            new Package(packageElement, this.LoadingDock1, this.LoadingDock2, randomTetromino);
             conveyorElement.appendChild(packageElement);
 
 

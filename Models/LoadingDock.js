@@ -25,14 +25,21 @@ class LoadingDock {
             truckElement.classList.add('truck');
             truckElement.textContent = `Truck: ${truck.length} x ${truck.width}, Type: ${truck.type}`;
             const gridElement = document.createElement('div');
+            const grid = truck.grid;
             gridElement.classList.add('grid');
-            const gridSize = truck.length * truck.width;
-            for (let i = 0; i < gridSize; i++) {
-                const gridItem = document.createElement('div');
-                gridItem.classList.add('grid-item');
-                gridElement.setAttribute('data-width', truck.width);
-                gridElement.appendChild(gridItem);
-            }
+            grid.forEach(row => {
+                row.forEach(cell => {
+                    const cellElement = document.createElement('div');
+                    cellElement.classList.add('grid-item');
+                    if (cell !== '') {
+                        cellElement.classList.add(`${cell}`);
+                    }
+                    gridElement.appendChild(cellElement);
+                });
+            });
+            gridElement.setAttribute('data-width', truck.width);
+            gridElement.setAttribute('data-truck-id', this.trucks.indexOf(truck));
+            gridElement.setAttribute('data-dock-id', this.id)
 
             truckElement.appendChild(gridElement);
             this.dockElement.appendChild(truckElement);
