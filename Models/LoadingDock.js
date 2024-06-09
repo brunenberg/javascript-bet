@@ -66,16 +66,6 @@ class LoadingDock {
         });
     }
 
-    sendTruck(truck, index) {
-        // Logic to handle sending the truck away
-        console.log(`Sending truck ${index} away`);
-
-        // Start a timer based on the truck's interval
-        setTimeout(() => {
-            this.returnTruck(truck, index);
-        }, truck.interval);
-    }
-
     returnTruck(truck, index) {
         // Logic to handle the truck's return
         console.log(`Truck ${index} has returned`);
