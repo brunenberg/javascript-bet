@@ -20,7 +20,7 @@ class LoadingDock {
             return;
         }
         this.dockElement.innerHTML = '';
-        this.trucks.forEach(truck => {
+        this.trucks.forEach((truck, index) => {
             const truckElement = document.createElement('div');
             truckElement.classList.add('truck');
             truckElement.textContent = `Truck: ${truck.length} x ${truck.width}, Type: ${truck.type}`;
@@ -41,9 +41,34 @@ class LoadingDock {
             gridElement.setAttribute('data-truck-id', this.trucks.indexOf(truck));
             gridElement.setAttribute('data-dock-id', this.id)
 
+            // Create a send button for each truck
+            const sendButton = document.createElement('button');
+            sendButton.textContent = 'Verstuur';
+            sendButton.addEventListener('click', () => {
+                truck.sendAndReturn(this.refreshTruck.bind(this));
+            });
+
             truckElement.appendChild(gridElement);
+            truckElement.appendChild(sendButton); // Append the send button to the truck element
             this.dockElement.appendChild(truckElement);
         });
+    }
+
+    sendTruck(truck, index) {
+        // Logic to handle sending the truck away
+        console.log(`Sending truck ${index} away`);
+
+        // Start a timer based on the truck's interval
+        setTimeout(() => {
+            this.returnTruck(truck, index);
+        }, truck.interval);
+    }
+
+    returnTruck(truck, index) {
+        // Logic to handle the truck's return
+        console.log(`Truck ${index} has returned`);
+        truck.clearGrid(); // Clear the truck's grid
+        this.refreshTruck(truck); // Refresh the truck's display
     }
 
     refreshTruck(truck) {

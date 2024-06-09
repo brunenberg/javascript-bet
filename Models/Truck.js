@@ -1,23 +1,10 @@
 class Truck {
-    constructor(length, width, interval, type, refreshCallback) {
+    constructor(length, width, interval, type) {
         this.length = length;
         this.width = width;
         this.interval = interval * 1000; // Convert seconds to milliseconds
         this.type = type;
         this.grid = Array.from({ length: length }, () => Array.from({ length: width }, () => ""));
-        this.refreshCallback = refreshCallback; // Store the callback function
-        this.startInterval(); // Start the interval timer when the truck is created
-    }
-
-    // Starts an interval timer that clears the grid and calls the refresh callback after each interval
-    startInterval() {
-        this.intervalId = setInterval(() => {
-            this.clearGrid();
-            // Optionally, call a method to update the display or handle other logic
-            if (this.refreshCallback) {
-                this.refreshCallback(this); // Pass this truck instance if needed
-            }
-        }, this.interval); // Convert interval from seconds to milliseconds
     }
 
     // Clears the truck's grid
@@ -25,8 +12,16 @@ class Truck {
         this.grid = Array.from({ length: this.length }, () => Array.from({ length: this.width }, () => ""));
     }
 
-    // Stops the interval timer
-    stopInterval() {
-        clearInterval(this.intervalId);
+    // Simulates sending the truck away and returning after the interval
+    sendAndReturn(callback) {
+        // Clear the grid immediately to simulate sending the truck away
+        this.clearGrid();
+
+        // Set a timeout to simulate the truck returning after the interval
+        setTimeout(() => {
+            if (callback) {
+                callback(this); // Call the provided callback function when the truck returns
+            }
+        }, this.interval);
     }
 }
