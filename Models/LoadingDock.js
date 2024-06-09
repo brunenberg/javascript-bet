@@ -29,7 +29,7 @@ class LoadingDock {
                     console.debug('Truck', index, 'cannot leave due to weather conditions', 'Weather check:', weatherCheck);
                     truckElement.textContent = `Truck: ${truck.length} x ${truck.width}, Type: ${truck.type}\r\nWeather conditions prevent departure.`;
                     this.dockElement.appendChild(truckElement);
-                    return; // Continue
+                    return;
                 }
                 console.debug('Truck', index, 'can leave', 'Weather check:', weatherCheck);
                 truckElement.textContent = `Truck: ${truck.length} x ${truck.width}, Type: ${truck.type}`;
