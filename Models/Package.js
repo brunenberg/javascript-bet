@@ -184,8 +184,8 @@ class Package {
         // Clone the package element and append it to the body
         const clonedElement = packageElement.cloneNode(true);
         clonedElement.style.position = 'absolute';
-        clonedElement.style.top = `${packageRect.top}px`;
-        clonedElement.style.left = `${packageRect.left}px`;
+        clonedElement.style.top = `${packageRect.top + window.scrollY}px`;
+        clonedElement.style.left = `${packageRect.left + window.scrollX}px`;
 
         document.body.appendChild(clonedElement);
         packageElement.parentNode.removeChild(packageElement);
