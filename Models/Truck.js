@@ -1,9 +1,10 @@
 class Truck {
-    constructor(length, width, interval, type) {
+    constructor(length, width, interval, type, loadingDock) {
         this.length = length;
         this.width = width;
         this.interval = interval * 1000; // Convert seconds to milliseconds
         this.type = type;
+        this.loadingDock = loadingDock;
         this.inDock = true;
         this.grid = Array.from({ length: length }, () => Array.from({ length: width }, () => ""));
     }
@@ -22,6 +23,7 @@ class Truck {
         // Set a timeout to simulate the truck returning after the interval
         setTimeout(() => {
             this.inDock = true; // The truck is now back in the dock
+            this.loadingDock.displayTrucks(); // Refresh the dock display
             if (callback) {
                 callback(this); // Call the provided callback function when the truck returns
             }
