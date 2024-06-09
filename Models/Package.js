@@ -90,7 +90,7 @@ class Package {
                     setTimeout(() => {
                         this.addCells(this.loadingDock1.trucks[truckId].grid, row, column, this.type);
                         this.loadingDock1.displayTrucks();
-                    }, 1000);
+                    }, 700);
                 } else {
                     if (this.checkCollission(this.loadingDock2.trucks[truckId].grid, row, column, this.type)) {
                         return;
@@ -100,7 +100,7 @@ class Package {
                     setTimeout(() => {
                         this.addCells(this.loadingDock2.trucks[truckId].grid, row, column, this.type);
                         this.loadingDock2.displayTrucks();
-                    }, 1000);
+                    }, 700);
                 }
                 grid.classList.remove('highlight');
             }
@@ -195,7 +195,7 @@ class Package {
         const targetY = gridItemRect.top - packageRect.top;
 
         // Animates the cloned element to the target coordinates
-        clonedElement.style.transition = 'transform 1s';
+        clonedElement.style.transition = 'transform .6s';
 
         setTimeout(() => {
             clonedElement.style.transform = `translate(${targetX}px, ${targetY}px)`;
@@ -204,7 +204,7 @@ class Package {
         // Remove the cloned element from the DOM after the animation
         setTimeout(() => {
             document.body.removeChild(clonedElement);
-        }, 1000);
+        }, 700);
 
     }
 }
