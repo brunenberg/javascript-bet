@@ -1,8 +1,8 @@
 class Truck {
-    constructor(length, width, interval, type, loadingDock) {
+    constructor(length, width, intervalSeconds, type, loadingDock) {
         this.length = length;
         this.width = width;
-        this.interval = interval * 1000; // Convert seconds to milliseconds
+        this.intervalMillis = intervalSeconds * 1000; // Convert seconds to milliseconds
         this.type = type;
         this.loadingDock = loadingDock;
         console.log("Loading dock: ", loadingDock);
@@ -29,7 +29,7 @@ class Truck {
             if (callback) {
                 callback(this); // Call the provided callback function when the truck returns
             }
-        }, this.interval);
+        }, this.intervalMillis);
     }
 
     // Weather rules
